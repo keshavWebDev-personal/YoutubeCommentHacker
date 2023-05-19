@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<update_manifest>
+  <version>1.0.1</version>
+  <crx_url>https://example.com/extension.crx</crx_url>
+</update_manifest>
