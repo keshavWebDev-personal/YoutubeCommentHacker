@@ -1,0 +1,34 @@
+{
+    "manifest_version": 3,
+    "name": "Youtube Commenter Hack",
+    "description": "A simple tool to help you achive your IT Wing Reporting Goals",
+    "version": "0.1",
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "storage"
+    ],
+    "icons": {
+        "128": "icons/icon_128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.youtube.com/*"
+            ],
+            "js": [
+                "content_script.js"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_icon": {
+            "128": "icons/icon_128.png"
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    }
+}
