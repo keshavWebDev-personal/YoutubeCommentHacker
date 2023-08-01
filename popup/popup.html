@@ -1,16 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <p>Min</p>
-    <input type="textbox" name="" id="minTime" placeholder="in Ms" value="500">
-    <p>Max</p>
-    <input type="textbox" name="" id="maxTime" placeholder="in Ms" value="3000">
-    <script src="popup.js"></script>
+    <div class="container">
+        <div class="stage">
+            <div class="page hommePage">
+
+                <div class="hommePage_stage">
+                    <div class="hommePage_elemContainer">
+                        <div class="cmntsCount_div">
+
+                            <div class="cmntsCountDiv_elemContainer cmntsCount_title_container">
+
+                                <div class="cmntsCount_title">
+                                    Comments
+                                </div>
+                            </div>
+
+                            <div class="cmntsCountDiv_elemContainer cmntsCount_display_container">
+
+                                <div class="cmtsCount_display" id="Count">
+                                    0
+                                </div>
+                            </div>
+
+                            <div class="cmntsCountDiv_elemContainer cmntsCount_time_container">
+
+                                <div class="cmntsCount_time" id="commentStartTime">
+                                    Chillin..🏖️
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="minMaxIntervalTime_div">
+                            <div class="slider">
+                                <div class="progress" id="progress"></div>
+                            </div>
+                            <div class="range-input_Countainer" id="range-input_Countainer">
+                                <input type="range" min="0" max="100" value="25" name="minTimeSlider"
+                                    id="minTimeSlider">
+                                <span class="minSliderValue_popup sliderValue_popup"></span>
+
+                                <input type="range" min="0" max="100" value="75" name="maxTimeSlider"
+                                    id="maxTimeSlider">
+                                <span class="maxSliderValue_popup sliderValue_popup"></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="page historyPage">
+                hi
+            </div>
+        </div>
+    </div>
+    <script type="module" src="js/manifest.js"></script>
 </body>
+
 </html>

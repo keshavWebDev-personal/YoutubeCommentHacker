@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    let minTime = 5000
-    let maxTime = 30000
+    let minTime = 3000
+    let maxTime = 10000
 
     if (request.action === "store_minTime") {
         minTime = request.data
@@ -9,7 +9,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         maxTime = request.data
 
     } else if (request.action === "get minTime maxTime") {
-        console.log(minTime, maxTime);
         sendResponse({ minTime: minTime, maxTime: maxTime })
 
     }

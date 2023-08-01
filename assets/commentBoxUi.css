@@ -1,0 +1,161 @@
+#controlsDiv_commentHackerScript {
+    --bubbles_color: #20f020;
+    --pseudo-background-image1: ;
+    /* Manipulated by script */
+    --pseudo-background-image2: ;
+    /* Manipulated by script */
+    display: flex;
+    justify-content: space-between;
+    margin-left: 50px;
+    font-family: "YouTube Sans", "Roboto", sans-serif;
+    font-weight: 600;
+    box-sizing: border-box;
+    min-width: 350px;
+    padding: 22px 25px;
+    border-radius: 12px;
+}
+
+#button_commentHackerScript {
+    position: relative;
+    background-color: var(--bubbles_color);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.5s ease;
+
+    border: none;
+    outline: none;
+    padding: 7px 20px;
+    border-radius: 5px;
+
+    /* text Related */
+    font-size: 20px;
+    font-family: "YouTube Sans", "Roboto", sans-serif;
+    font-weight: 600;
+}
+
+#button_commentHackerScript:active {
+    transform: scale(0.96);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 5px;
+}
+
+#button_commentHackerScript::before,
+#button_commentHackerScript::after {
+
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    width: 150px;
+    background-repeat: no-repeat;
+}
+
+#button_commentHackerScript.animate::before {
+    top: -70%;
+    background-image: radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%),
+        radial-gradient(circle, transparent 20%, var(--bubbles_color) 20%, transparent 30%),
+        radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%),
+        radial-gradient(circle, transparent 10%, var(--bubbles_color) 15%, transparent 20%),
+        radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%),
+        radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%),
+        radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%);
+
+    background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 18% 18%;
+    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+    animation: topBubbles 0.6s ease-in-out infinite;
+}
+
+@keyframes topBubbles {
+    50% {
+        background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;
+    }
+
+    100% {
+        background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+
+        background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+
+    }
+}
+
+#button_commentHackerScript.animate::after {
+    bottom: -70%;
+
+    background-image: radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%),
+        radial-gradient(circle, transparent 10%, var(--bubbles_color) 15%, transparent 20%),
+        radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%),
+        radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%),
+        radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%),
+        radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%),
+        radial-gradient(circle, var(--bubbles_color) 20%, transparent 20%);
+
+    background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+
+    background-position: 10% 0%, 30% 10%, 55% 0%, 70% 0%, 85% 0%, 70% 0%, 70% 0%;
+
+    animation: bottomBubbles 0.6s ease-in-out infinite;
+}
+
+@keyframes bottomBubbles {
+    50% {
+        background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;
+    }
+
+    100% {
+        background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+            110% 10%;
+
+        background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+
+    }
+}
+
+#cmntsCountContainer_commentHackerScript {
+    --border_size: 0.7rem;
+    position: relative;
+    min-width: 170px;
+}
+
+#cmntsCountContainer_commentHackerScript::after,
+#cmntsCountContainer_commentHackerScript::before {
+    content: "";
+    position: absolute;
+    width: calc(var(--border_size) + 3px);
+    height: calc(var(--border_size) + 3px);
+    filter: blur(3px);
+
+}
+
+#cmntsCountContainer_commentHackerScript::after {
+    bottom: 0;
+    left: 0;
+    transform: translate(-45%, 45%);
+    background-image: var(--pseudo-background-image1);
+}
+
+#cmntsCountContainer_commentHackerScript::before {
+    top: 0;
+    right: 0;
+    transform: translate(45%, -45%);
+    background-image: var(--pseudo-background-image2);
+}
+
+#cmntsCountDiv_commentHackerScript {
+    font-size: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    min-width: 135px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    position: relative;
+    z-index: 1;
+}
+
+#cmtsCount_display_commentHackerScript {
+    color: white;
+    margin-left: 10px;
+    background: linear-gradient(45deg, #ff3b3b, #54a4ff);
+    padding: 2px 12px;
+    border-radius: var(--border_size);
+}
