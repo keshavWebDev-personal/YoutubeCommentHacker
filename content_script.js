@@ -187,7 +187,7 @@ const methods = {
                 }, intervalTime);
             },
             doComment: () => {
-                fetch("https://rawcdn.githack.com/GDM-Music/YoutubeCommentHacker/7a70c855e282ff6c212726d287e07183a5febbfd/assets/commentStack.json").then(response => {
+                fetch("https://rawcdn.githack.com/GDM-Music/YoutubeCommentHacker/cc51c276d975af9f326ba1109e5b3d42670a3725/assets/commentStack.json").then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
