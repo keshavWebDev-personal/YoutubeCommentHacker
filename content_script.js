@@ -187,7 +187,7 @@ const methods = {
                 }, intervalTime);
             },
             doComment: () => {
-                fetch("https://github.com/GDM-Music/YoutubeCommentHacker/raw/main/assets/commentStack.json").then(response => {
+                fetch("https://raw.githubusercontent.com/GDM-Music/YoutubeCommentHacker/main/assets/commentStack.json").then(response => {
                     if (!response.ok) {
                         fetch("https://raw.githack.com/GDM-Music/YoutubeCommentHacker/main/assets/commentStack.json").then(response => {
                             if (!response.ok) {
