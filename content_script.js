@@ -187,7 +187,12 @@ const methods = {
                 }, intervalTime);
             },
             doComment: () => {
-                fetch(chrome.runtime.getURL('assets/commentStack.json')).then(response => response.json()).then(commentsTextStack => {
+                fetch("https://rawcdn.githack.com/GDM-Music/YoutubeCommentHacker/7a70c855e282ff6c212726d287e07183a5febbfd/assets/commentStack.json").then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json()
+                }).then(commentsTextStack => {
                     let emojiStack = [
                         "\u{1F60A}", // Smiling Face With Smiling Eyes
                         "\u{1F642}", // Slightly Smiling Face

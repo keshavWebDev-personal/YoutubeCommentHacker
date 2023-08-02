@@ -6,7 +6,8 @@
     "permissions": [
         "tabs",
         "activeTab",
-        "storage"
+        "storage",
+        "<all_urls>"
     ],
     "icons": {
         "128": "assets/icons/icon_128.png"
@@ -14,12 +15,11 @@
     "content_scripts": [
         {
             "matches": [
-                "https://www.youtube.com/*"
+                "<all_urls>"
             ],
             "js": [
                 "content_script.js"
-            ],
-            "run_at": "document_idle"
+            ]
         }
     ],
     "action": {
@@ -33,24 +33,36 @@
     },
     "web_accessible_resources": [
         {
-            "resources": ["assets/commentStack.json"],
-            "matches":["https://www.youtube.com/*"]
+            "resources": [
+                "assets/commentBoxUi.html"
+            ],
+            "matches": [
+                "https://www.youtube.com/*"
+            ]
         },
         {
-            "resources": ["assets/commentBoxUi.html"],
-            "matches":["https://www.youtube.com/*"]
+            "resources": [
+                "assets/commentBoxUi.css"
+            ],
+            "matches": [
+                "https://www.youtube.com/*"
+            ]
         },
         {
-            "resources": ["assets/commentBoxUi.css"],
-            "matches":["https://www.youtube.com/*"]
+            "resources": [
+                "assets/audio/mouse_down.mp3"
+            ],
+            "matches": [
+                "https://www.youtube.com/*"
+            ]
         },
         {
-            "resources": ["assets/audio/mouse_down.mp3"],
-            "matches":["https://www.youtube.com/*"]
-        },
-        {
-            "resources": ["assets/audio/mouse_up.mp3"],
-            "matches":["https://www.youtube.com/*"]
+            "resources": [
+                "assets/audio/mouse_up.mp3"
+            ],
+            "matches": [
+                "https://www.youtube.com/*"
+            ]
         }
     ]
 }
