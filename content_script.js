@@ -53,13 +53,13 @@ const methods = {
     fetchFiles: (url) => {
         return fetch(chrome.runtime.getURL(url)).then(response => response.text())
     },
-    playMouseDownAudio: ()=>{
+    playMouseDownAudio: () => {
         let mouseDown_audio = document.createElement('audio')
         document.body.appendChild(mouseDown_audio)
         mouseDown_audio.src = chrome.runtime.getURL('assets/audio/mouse_down.mp3')
         mouseDown_audio.play()
     },
-    playMouseUpAudio: ()=>{
+    playMouseUpAudio: () => {
         let mouseUp_audio = document.createElement('audio')
         document.body.appendChild(mouseUp_audio)
         mouseUp_audio.src = chrome.runtime.getURL('assets/audio/mouse_up.mp3')
@@ -100,7 +100,7 @@ const methods = {
                         methods.toggleStartCommenting()
                         methods.playMouseDownAudio()
                     }
-                    
+
                     DOMElems.button.onmouseup = () => {
                         methods.playMouseUpAudio()
                     }
@@ -187,9 +187,19 @@ const methods = {
                 }, intervalTime);
             },
             doComment: () => {
-                fetch("https://rawcdn.githack.com/GDM-Music/YoutubeCommentHacker/bc8f6c61b163c3ecfc2f808b6569bd98874eb88f/assets/commentStack.json").then(response => {
+                fetch("https://github.com/GDM-Music/YoutubeCommentHacker/raw/main/assets/commentStack.json").then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                        fetch("https://raw.githack.com/GDM-Music/YoutubeCommentHacker/main/assets/commentStack.json").then(response => {
+                            if (!response.ok) {
+                                fetch("https://rawcdn.githack.com/GDM-Music/YoutubeCommentHacker/ff4e566715b28019a2995e15ce04915f306d0f26/assets/commentStack.json").then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    return response.json()
+                                })
+                            }
+                            return response.json()
+                        })
                     }
                     return response.json()
                 }).then(commentsTextStack => {
