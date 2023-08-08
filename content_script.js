@@ -2,6 +2,8 @@ let gloVar = {
     intervalId: null,
     isDarkMode: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
     commentInterval: 0,
+    maxTime: 0,
+    minTime: 0,
 }
 
 let DOMElems = {
@@ -156,7 +158,7 @@ const methods = {
     toggleStartCommenting: () => {
 
         const commentMethods = {
-            startStopRandomInterval: (minTime, maxTime) => {
+            startStopRandomInterval: () => {
                 if (gloVar.intervalId) {
                     clearInterval(gloVar.intervalId);
                     clearTimeout(gloVar.intervalId); // clear the setTimeout as well
@@ -175,18 +177,19 @@ const methods = {
                             sendResponse({ commentStartTime: commentStartTime })
                         }
                     })
-                    commentMethods.runRandomInterval(minTime, maxTime);
+                    commentMethods.runRandomInterval();
                 }
             },
-            runRandomInterval: (minTime, maxTime) => {
-                let intervalTime = Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime; // random interval time between minTime and maxTime
+            runRandomInterval: () => {
+                let intervalTime = Math.floor(Math.random() * (gloVar.maxTime - gloVar.minTime)) + gloVar.minTime; // random interval time between minTime and maxTime
 
                 gloVar.intervalId = setTimeout(() => {
                     commentMethods.doComment();
-                    commentMethods.runRandomInterval(minTime, maxTime);
+                    commentMethods.runRandomInterval();
                 }, intervalTime);
             },
             doComment: () => {
+                
                 fetch("https://raw.githubusercontent.com/GDM-Music/YoutubeCommentHacker/main/assets/commentStack.json").then(response => {
                     if (!response.ok) {
                         fetch("https://raw.githack.com/GDM-Music/YoutubeCommentHacker/main/assets/commentStack.json").then(response => {
@@ -247,8 +250,20 @@ const methods = {
         }
 
         // Call sendMessage function to get minTime and maxTime values
-        methods.sendToPopup({ action: "get minTime maxTime" }, "minTime").then((response) => {
-            commentMethods.startStopRandomInterval(response.minTime, response.maxTime);
+        methods.sendToPopup({ sender: "content_script", action: "get minTime maxTime" }, "minTime").then((response) => {
+            gloVar.minTime = response.minTime
+            gloVar.maxTime = response.maxTime
+            chrome.runtime.onMessage.addListener((request, sender, reponse)=>{
+                if (request.action == "store_minTime") {
+                    gloVar.minTime = request.data
+                }
+                if (request.action == "store_maxTime") {
+                    gloVar.maxTime = request.data
+                }
+                
+            })
+
+            commentMethods.startStopRandomInterval();
         }).catch((error) => {
             console.error(error);
         });

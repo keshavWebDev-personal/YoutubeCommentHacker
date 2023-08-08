@@ -1,44 +1,41 @@
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    let minTime = 3000
-    let maxTime = 10000
+let gloVar = {
+    minTime: 0,
+    maxTime:0,
+}
 
-    if (request.action === "store_minTime") {
-        minTime = request.data
+const methods = {
+    sendMessage: (message, expectedResponse) => {
+        return new Promise((resolve, reject) => {
+            chrome.runtime.sendMessage(message, (response) => {
+                if (!expectedResponse) { return }
+                if (response[expectedResponse]) {
+                    resolve(response)
+                } else if (response.error) {
+                    reject(response.error)
+                } else {
+                    reject("'" + expectedResponse + "' not recieved")
+                }
+            })
+        })
+    },
+}
 
-    } else if (request.action === "store_maxTime") {
-        maxTime = request.data
+// ---------------------Global Event Listners-------------------------- 
 
-    } else if (request.action === "get minTime maxTime") {
-        sendResponse({ minTime: minTime, maxTime: maxTime })
-
+//To Store Mintime Maxtime Values from Popup
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) =>{
+    if (message.sender == 'popup_script' && message.action == "Store Min Max Time values") {
+        gloVar.maxTime = message.data.maxTime
+        gloVar.minTime = message.data.minTime
+        sendResponse("Received by Background_Script")
     }
-});
+})
 
-// // Set default values for minTime and maxTime
-// chrome.storage.local.set({ minTime: 5000, maxTime: 30000 });
-
-// // Listen for messages
-// chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-//   // Retrieve the stored values of minTime and maxTime
-//   chrome.storage.local.get(["minTime", "maxTime"], (result) => {
-//     let minTime = result.minTime;
-//     let maxTime = result.maxTime;
-
-//     if (request.action === "store_minTime") {
-//       // Store the new value of minTime in chrome.storage
-//       minTime = request.data;
-//       chrome.storage.local.set({ minTime: minTime });
-//     } else if (request.action === "store_maxTime") {
-//       // Store the new value of maxTime in chrome.storage
-//       maxTime = request.data;
-//       chrome.storage.local.set({ maxTime: maxTime });
-//     } else if (request.action === "get minTime maxTime") {
-//       // Send the values of minTime and maxTime to the caller
-//       console.log(minTime, maxTime);
-//       sendResponse({ minTime: minTime, maxTime: maxTime });
-//     }
-//   });
-
-//   // Make sure to return true so that sendResponse can be called asynchronously
-//   return true;
-// });
+// send min max time to content script on request
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action == "get minTime maxTime" && message.sender == "content_script" ) {
+        
+        sendResponse({ minTime: gloVar.minTime, maxTime: gloVar.maxTime })
+        
+    }
+})
