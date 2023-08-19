@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Youtube Commenter Hack",
     "description": "A simple tool to help you achive your IT Wing Reporting Goals",
-    "version": "0.1",
+    "version": "0.1.1",
     "permissions": [
         "tabs",
         "activeTab",
