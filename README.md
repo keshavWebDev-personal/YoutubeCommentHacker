@@ -4,6 +4,7 @@ A chrome extension that is a youtube comment bot
 # Instalation :- 
 
 1. Download the zip from the lastest release by clicking here
+
 ![image](https://github.com/GDM-Music/YoutubeCommentHacker/assets/95571677/de7b7a12-540a-4e28-8953-eb491faa2f90)
 ![image](https://github.com/GDM-Music/YoutubeCommentHacker/assets/95571677/5d4171e1-7d3d-4a68-ade4-03117b6893ca)
 
