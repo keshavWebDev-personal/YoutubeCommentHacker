@@ -6,8 +6,7 @@
     "permissions": [
         "tabs",
         "activeTab",
-        "storage",
-        "<all_urls>"
+        "storage"
     ],
     "icons": {
         "128": "assets/icons/icon_128.png"
