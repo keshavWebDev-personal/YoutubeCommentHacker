@@ -11,8 +11,10 @@ A chrome extension that is a youtube comment bot
 2. Then Extract the zip anywhere, now you will be left with a folder called  "YoutubeCommentHacker.vxxx"
 3. Open up your browser of choice
 	1. Chrome
-		1. look for three dots in the top right corner and click it ![image](https://github.com/GDM-Music/YoutubeCommentHacker/assets/95571677/b1b0e6a2-af7b-4d39-87bd-f41e40b152c5)
-		2. goto - Settings > Extension (In sidebar) ![image](https://github.com/GDM-Music/YoutubeCommentHacker/assets/95571677/ada52198-d1b6-4df9-8314-7d5f2ebaa4fe)
+		1. look for three dots in the top right corner and click it
+![image](https://github.com/GDM-Music/YoutubeCommentHacker/assets/95571677/b1b0e6a2-af7b-4d39-87bd-f41e40b152c5)
+		2. goto - Settings > Extension (In sidebar) 
+![image](https://github.com/GDM-Music/YoutubeCommentHacker/assets/95571677/ada52198-d1b6-4df9-8314-7d5f2ebaa4fe)
 		3. then, in the top right corner, click the button called "Developer mode"
 		4. then a some Buttons would appear. click the one called "Load Unpacked" 
 		5. then locate and selected the FOLDER called "YoutubeCommentHacker.vxxx"
