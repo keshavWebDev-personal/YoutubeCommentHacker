@@ -190,11 +190,11 @@ const methods = {
             },
             doComment: () => {
                 
-                fetch("https://raw.githubusercontent.com/GDM-Music/YoutubeCommentHacker/main/assets/commentStack.json").then(response => {
+                fetch("https://github.com/keshavWebDev-personal/commentsStacks/raw/main/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
                     if (!response.ok) {
-                        fetch("https://raw.githack.com/GDM-Music/YoutubeCommentHacker/main/assets/commentStack.json").then(response => {
+                        fetch("https://raw.githack.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
                             if (!response.ok) {
-                                fetch("https://rawcdn.githack.com/GDM-Music/YoutubeCommentHacker/ff4e566715b28019a2995e15ce04915f306d0f26/assets/commentStack.json").then(response => {
+                                fetch("https://rawcdn.githack.com/keshavWebDev-personal/commentsStacks/e70a109fef5c01eb61ae4e5676216895fb147f27/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
                                     if (!response.ok) {
                                         throw new Error('Network response was not ok');
                                     }
