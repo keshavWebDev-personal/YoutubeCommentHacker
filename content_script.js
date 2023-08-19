@@ -190,7 +190,7 @@ const methods = {
             },
             doComment: () => {
                 
-                fetch("https://github.com/keshavWebDev-personal/commentsStacks/raw/main/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
+                fetch("https://raw.githubusercontent.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
                     if (!response.ok) {
                         fetch("https://raw.githack.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
                             if (!response.ok) {
