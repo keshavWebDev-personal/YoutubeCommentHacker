@@ -68,16 +68,12 @@ class UIHandler {
         }, 600);
 
         setTimeout(() => {
+            let parent = this.button.parentNode as HTMLElement;
+
             if (this.button.textContent == "Start") {
-                this.button.parentNode?.style.setProperty(
-                    "--bubbles_color",
-                    "#20f020"
-                );
+                parent.style.setProperty("--bubbles_color", "#20f020");
             } else {
-                this.button.parentNode?.style.setProperty(
-                    "--bubbles_color",
-                    "#f0203c"
-                );
+                parent.style.setProperty("--bubbles_color", "#f0203c");
             }
         }, 300);
     }
@@ -289,7 +285,8 @@ class Comments {
             this.runRandomInterval();
         }, intervalTime);
     }
-    static doComment() {
+    static async doComment() {
+        
         fetch(
             "https://raw.githubusercontent.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json"
         )
@@ -356,13 +353,18 @@ class Comments {
                     " " +
                     emojiString;
 
-                document.getElementById("contenteditable-root")?.textContent =
-                    finalText;
+                (
+                    document.getElementById(
+                        "contenteditable-root"
+                    ) as HTMLElement
+                ).textContent = finalText;
                 document.getElementById("submit-button")?.click();
                 gloVar.commentInterval++;
-                document.querySelector(
-                    "#cmntsCountDiv_commentHackerScript span"
-                ).textContent = gloVar.commentInterval;
+                (
+                    document.querySelector(
+                        "#cmntsCountDiv_commentHackerScript span"
+                    ) as HTMLSpanElement
+                ).textContent = gloVar.commentInterval.toString();
 
                 //to send the current coment count to popup.js
                 ExtManager.sendToPopup({ isCommentDone: true }, undefined);
@@ -389,21 +391,9 @@ class gloVarC {
 
 let gloVar = new gloVarC();
 
-let DOMElems = {
-    controlsDiv: document.getElementById("controlsDiv_commentHackerScript"),
-    button: document.getElementById("button_commentHackerScript"),
-    styleElem: null,
-    cmntsCount_title: document.getElementById(
-        "cmntsCount_title_commentHackerScript"
-    ),
-    cmtsCount_display: document.getElementById(
-        "cmtsCount_display_commentHackerScript"
-    ),
-    cmntsCountDiv: document.getElementById("cmntsCountDiv_commentHackerScript"),
-};
-
+// ***************************************************************
 // *********************Global Event Listners*********************
-
+// ***************************************************************
 //Show Controls on webPage when Clicked on Extension Icon
 
 const UIHandler1 = new UIHandler();
