@@ -286,89 +286,76 @@ class Comments {
         }, intervalTime);
     }
     static async doComment() {
-        
-        fetch(
+        let response = await fetch(
             "https://raw.githubusercontent.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json"
-        )
-            .then((response) => {
-                if (!response.ok) {
-                    fetch(
-                        "https://raw.githack.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json"
-                    ).then((response) => {
-                        if (!response.ok) {
-                            fetch(
-                                "https://rawcdn.githack.com/keshavWebDev-personal/commentsStacks/e70a109fef5c01eb61ae4e5676216895fb147f27/guruKaPattar/guruKaPattar_commentStack.json"
-                            ).then((response) => {
-                                if (!response.ok) {
-                                    throw new Error(
-                                        "Network response was not ok"
-                                    );
-                                }
-                                return response.json();
-                            });
-                        }
-                        return response.json();
-                    });
-                }
-                return response.json();
-            })
-            .then((commentsTextStack) => {
-                let emojiStack = [
-                    "\u{1F60A}", // Smiling Face With Smiling Eyes
-                    "\u{1F642}", // Slightly Smiling Face
-                    "\u{1F60C}", // Relieved Face
-                    "\u{1F601}", // Grinning Face With Smiling Eyes
-                    "\u{1F60D}", // Smiling Face With Heart-Eyes
-                    "\u{1F618}", // Face Blowing a Kiss
-                    "\u{1F60B}", // Face Savoring Food
-                    "\u{1F64C}", // Person Raising Both Hands in Celebration
-                    "\u{1F31F}", // Glowing Star
-                    "\u{1F389}", // Party Popper
-                    "\u{1F49C}", // Heart With Arrow
-                    "\u{1F495}", // Two Hearts
-                    "\u{1F44F}", // Clapping Hands Sign
-                    "\u{1F525}", // Fire
-                    "\u{1F4AF}", // Hundred Points Symbol
-                    "\u{270C}", // Victory Hand
-                    "\u{1F4AA}", // Flexed Biceps
-                ];
+        );
+        if (!response.ok) {
+            response = await fetch(
+                "https://raw.githack.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json"
+            );
+        }
+        if (!response.ok) {
+            response = await fetch(
+                "https://rawcdn.githack.com/keshavWebDev-personal/commentsStacks/e70a109fef5c01eb61ae4e5676216895fb147f27/guruKaPattar/guruKaPattar_commentStack.json"
+            );
+        }
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+            return
+        }
 
-                //Click on the Youtube Comment Boc Ui
-                document.getElementById("placeholder-area")?.click();
+        let commentsTextStack:Array<string> = await response.json();
+        let emojiStack = [
+            "\u{1F60A}", // Smiling Face With Smiling Eyes
+            "\u{1F642}", // Slightly Smiling Face
+            "\u{1F60C}", // Relieved Face
+            "\u{1F601}", // Grinning Face With Smiling Eyes
+            "\u{1F60D}", // Smiling Face With Heart-Eyes
+            "\u{1F618}", // Face Blowing a Kiss
+            "\u{1F60B}", // Face Savoring Food
+            "\u{1F64C}", // Person Raising Both Hands in Celebration
+            "\u{1F31F}", // Glowing Star
+            "\u{1F389}", // Party Popper
+            "\u{1F49C}", // Heart With Arrow
+            "\u{1F495}", // Two Hearts
+            "\u{1F44F}", // Clapping Hands Sign
+            "\u{1F525}", // Fire
+            "\u{1F4AF}", // Hundred Points Symbol
+            "\u{270C}", // Victory Hand
+            "\u{1F4AA}", // Flexed Biceps
+        ];
 
-                let emojiString = "";
+        //Click on the Youtube Comment Boc Ui
+        document.getElementById("placeholder-area")?.click();
 
-                for (let i = 0; i < Math.floor(Math.random() * 4); i++) {
-                    emojiString =
-                        emojiString +
-                        emojiStack[
-                            Math.floor(Math.random() * emojiStack.length)
-                        ];
-                }
+        let emojiString = "";
 
-                let finalText =
-                    commentsTextStack[
-                        Math.floor(Math.random() * commentsTextStack.length)
-                    ] +
-                    " " +
-                    emojiString;
+        for (let i = 0; i < Math.floor(Math.random() * 4); i++) {
+            emojiString =
+                emojiString +
+                emojiStack[Math.floor(Math.random() * emojiStack.length)];
+        }
 
-                (
-                    document.getElementById(
-                        "contenteditable-root"
-                    ) as HTMLElement
-                ).textContent = finalText;
-                document.getElementById("submit-button")?.click();
-                gloVar.commentInterval++;
-                (
-                    document.querySelector(
-                        "#cmntsCountDiv_commentHackerScript span"
-                    ) as HTMLSpanElement
-                ).textContent = gloVar.commentInterval.toString();
+        let finalText: string =
+            commentsTextStack[
+                Math.floor(Math.random() * commentsTextStack.length)
+            ] +
+            " " +
+            emojiString;
 
-                //to send the current coment count to popup.js
-                ExtManager.sendToPopup({ isCommentDone: true }, undefined);
-            });
+        (
+            document.getElementById("contenteditable-root") as HTMLElement
+        ).textContent = finalText;
+        document.getElementById("submit-button")?.click();
+        gloVar.commentInterval++;
+        (
+            document.querySelector(
+                "#cmntsCountDiv_commentHackerScript span"
+            ) as HTMLSpanElement
+        ).textContent = gloVar.commentInterval.toString();
+
+        //to send the current coment count to popup.js
+        ExtManager.sendToPopup({ isCommentDone: true }, undefined);
     }
 }
 
