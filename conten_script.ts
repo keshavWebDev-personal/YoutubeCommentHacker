@@ -1,5 +1,5 @@
 class ExtManager {
-    static sendToPopup(message: object, expectedResponse: string) {
+    static sendToPopup(message: object, expectedResponse: string | undefined) {
         return new Promise<object>((resolve, reject) => {
             chrome.runtime.sendMessage(message, (response) => {
                 if (!expectedResponse) {
@@ -105,50 +105,52 @@ class UIHandler {
                 document.head.appendChild(this.styleElem);
 
                 // insert HTML
-                ExtManager.fetchFiles("assets/commentBoxUi.html").then((html) => {
-                    let wrapper = document.createElement("div");
-                    let commentsSection_titleElem = document.querySelector(
-                        "ytd-comments#comments #title"
-                    );
-                    wrapper.innerHTML = html;
-                    commentsSection_titleElem?.appendChild(wrapper);
+                ExtManager.fetchFiles("assets/commentBoxUi.html").then(
+                    (html) => {
+                        let wrapper = document.createElement("div");
+                        let commentsSection_titleElem = document.querySelector(
+                            "ytd-comments#comments #title"
+                        );
+                        wrapper.innerHTML = html;
+                        commentsSection_titleElem?.appendChild(wrapper);
 
-                    // Updating the DOMElems object
+                        // Updating the DOMElems object
 
-                    this.controlsDiv = document.getElementById(
-                        "controlsDiv_commentHackerScript"
-                    ) as HTMLDivElement;
-            
-                    this.button = document.getElementById(
-                        "button_commentHackerScript"
-                    ) as HTMLButtonElement;
-            
-                    this.styleElem = null;
-                    this.cmntsCount_title = document.getElementById(
-                        "cmntsCount_title_commentHackerScript"
-                    ) as HTMLParagraphElement;
-            
-                    this.cmtsCount_display = document.getElementById(
-                        "cmtsCount_display_commentHackerScript"
-                    ) as HTMLSpanElement;
-                    this.cmntsCountDiv = document.getElementById(
-                        "cmntsCountDiv_commentHackerScript"
-                    ) as HTMLDivElement;
+                        this.controlsDiv = document.getElementById(
+                            "controlsDiv_commentHackerScript"
+                        ) as HTMLDivElement;
 
-                    //Adjust colors according to dark/light mode
-                    this.colorsAccAppMode();
+                        this.button = document.getElementById(
+                            "button_commentHackerScript"
+                        ) as HTMLButtonElement;
 
-                    // If start button pressed
-                    this.button.onmousedown = () => {
-                        this.toggleButtonState();
-                        Comments.toggleStart();
-                        this.playMouseDownAudio();
-                    };
+                        this.styleElem = null;
+                        this.cmntsCount_title = document.getElementById(
+                            "cmntsCount_title_commentHackerScript"
+                        ) as HTMLParagraphElement;
 
-                    this.button.onmouseup = () => {
-                        this.playMouseUpAudio();
-                    };
-                });
+                        this.cmtsCount_display = document.getElementById(
+                            "cmtsCount_display_commentHackerScript"
+                        ) as HTMLSpanElement;
+                        this.cmntsCountDiv = document.getElementById(
+                            "cmntsCountDiv_commentHackerScript"
+                        ) as HTMLDivElement;
+
+                        //Adjust colors according to dark/light mode
+                        this.colorsAccAppMode();
+
+                        // If start button pressed
+                        this.button.onmousedown = () => {
+                            this.toggleButtonState();
+                            Comments.toggleStart();
+                            this.playMouseDownAudio();
+                        };
+
+                        this.button.onmouseup = () => {
+                            this.playMouseUpAudio();
+                        };
+                    }
+                );
             });
         }
     }
@@ -216,13 +218,13 @@ class UIHandler {
 
 class Comments {
     static toggleStart() {
-        // Call sendMessage function to get minTime and maxTime values        
+        // Call sendMessage function to get minTime and maxTime values
         ExtManager.sendToPopup(
-                { sender: "content_script", action: "get minTime maxTime" },
-                "minTime"
-            )
+            { sender: "content_script", action: "get minTime maxTime" },
+            "minTime"
+        )
             .then((response) => {
-                gloVar.minTime = response.minTime?;
+                gloVar.minTime = response.minTime;
                 gloVar.maxTime = response.maxTime;
                 chrome.runtime.onMessage.addListener(
                     (request, sender, reponse) => {
@@ -260,9 +262,12 @@ class Comments {
                 .replace(/\s/g, "")
                 .toLowerCase();
 
-            ExtManager.sendToPopup({
-                intervalStartTime: commentStartTime,
-            });
+            ExtManager.sendToPopup(
+                {
+                    intervalStartTime: commentStartTime,
+                },
+                undefined
+            );
 
             chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
                 if (message.request == "give_commentStartTime") {
@@ -271,10 +276,10 @@ class Comments {
                     });
                 }
             });
-            this.runRandomInterval();
+            Comments.runRandomInterval();
         }
     }
-    runRandomInterval() {
+    static runRandomInterval() {
         let intervalTime =
             Math.floor(Math.random() * (gloVar.maxTime - gloVar.minTime)) +
             gloVar.minTime; // random interval time between minTime and maxTime
@@ -284,7 +289,7 @@ class Comments {
             this.runRandomInterval();
         }, intervalTime);
     }
-    doComment() {
+    static doComment() {
         fetch(
             "https://raw.githubusercontent.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json"
         )
@@ -332,7 +337,7 @@ class Comments {
                 ];
 
                 //Click on the Youtube Comment Boc Ui
-                document.getElementById("placeholder-area").click();
+                document.getElementById("placeholder-area")?.click();
 
                 let emojiString = "";
 
@@ -351,29 +356,38 @@ class Comments {
                     " " +
                     emojiString;
 
-                document.getElementById("contenteditable-root").textContent =
+                document.getElementById("contenteditable-root")?.textContent =
                     finalText;
-                document.getElementById("submit-button").click();
+                document.getElementById("submit-button")?.click();
                 gloVar.commentInterval++;
                 document.querySelector(
                     "#cmntsCountDiv_commentHackerScript span"
                 ).textContent = gloVar.commentInterval;
 
                 //to send the current coment count to popup.js
-                ExtManager.sendToPopup({ isCommentDone: true });
+                ExtManager.sendToPopup({ isCommentDone: true }, undefined);
             });
     }
 }
 
-let gloVar = {
-    intervalId: null,
-    isDarkMode:
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches,
-    commentInterval: 0,
-    maxTime: 0,
-    minTime: 0,
-};
+class gloVarC {
+    intervalId: null | number;
+    isDarkMode: boolean;
+    commentInterval: number;
+    maxTime: number;
+    minTime: number;
+    constructor() {
+        this.intervalId = null;
+        (this.isDarkMode =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches),
+            (this.commentInterval = 0);
+        this.maxTime = 0;
+        this.minTime = 0;
+    }
+}
+
+let gloVar = new gloVarC();
 
 let DOMElems = {
     controlsDiv: document.getElementById("controlsDiv_commentHackerScript"),
@@ -388,14 +402,14 @@ let DOMElems = {
     cmntsCountDiv: document.getElementById("cmntsCountDiv_commentHackerScript"),
 };
 
-
-
 // *********************Global Event Listners*********************
 
 //Show Controls on webPage when Clicked on Extension Icon
+
+const UIHandler1 = new UIHandler();
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action === "Show Controls on webPage") {
-        ExtManager.showControlsOnWebpage();
+        UIHandler1.showControlsOnWebpage();
         sendResponse({ received: true });
     }
 });
@@ -415,5 +429,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 //If changed the page of youutbe specifically
 window.addEventListener("yt-navigate-start", function () {
-    ExtManager.hideControlsOnWebpage();
+    UIHandler1.hideControlsOnWebpage();
 });
