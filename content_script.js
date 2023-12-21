@@ -190,40 +190,59 @@ const methods = {
             },
             doComment: () => {
                 
-                fetch("https://raw.githubusercontent.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
+                // fetch("https://raw.githubusercontent.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
+                //     if (!response.ok) {
+                //         fetch("https://raw.githack.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
+                //             if (!response.ok) {
+                //                 fetch("https://rawcdn.githack.com/keshavWebDev-personal/commentsStacks/e70a109fef5c01eb61ae4e5676216895fb147f27/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
+                //                     if (!response.ok) {
+                //                         throw new Error('Network response was not ok');
+                //                     }
+                //                     return response.json()
+                //                 })
+                //             }
+                //             return response.json()
+                //         })
+                //     }
+                //     return response.json()
+                // }).
+                fetch("https://raw.githubusercontent.com/keshavWebDev-personal/commentsStacks/main/defensive/defensive_commentStack.json").then(response => {
                     if (!response.ok) {
-                        fetch("https://raw.githack.com/keshavWebDev-personal/commentsStacks/main/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
-                            if (!response.ok) {
-                                fetch("https://rawcdn.githack.com/keshavWebDev-personal/commentsStacks/e70a109fef5c01eb61ae4e5676216895fb147f27/guruKaPattar/guruKaPattar_commentStack.json").then(response => {
-                                    if (!response.ok) {
-                                        throw new Error('Network response was not ok');
-                                    }
-                                    return response.json()
-                                })
-                            }
-                            return response.json()
-                        })
+                        throw new Error('Network response was not ok');
                     }
                     return response.json()
-                }).then(commentsTextStack => {
+                }).
+                then(commentsTextStack => {
+                    // let emojiStack = [
+                    //     "\u{1F60A}", // Smiling Face With Smiling Eyes
+                    //     "\u{1F642}", // Slightly Smiling Face
+                    //     "\u{1F60C}", // Relieved Face
+                    //     "\u{1F601}", // Grinning Face With Smiling Eyes
+                    //     "\u{1F60D}", // Smiling Face With Heart-Eyes
+                    //     "\u{1F618}", // Face Blowing a Kiss
+                    //     "\u{1F60B}", // Face Savoring Food
+                    //     "\u{1F64C}", // Person Raising Both Hands in Celebration
+                    //     "\u{1F31F}", // Glowing Star
+                    //     "\u{1F389}", // Party Popper
+                    //     "\u{1F49C}", // Heart With Arrow
+                    //     "\u{1F495}", // Two Hearts
+                    //     "\u{1F44F}", // Clapping Hands Sign
+                    //     "\u{1F525}", // Fire
+                    //     "\u{1F4AF}", // Hundred Points Symbol
+                    //     "\u{270C}",  // Victory Hand
+                    //     "\u{1F4AA}" // Flexed Biceps
+                    // ]
+
                     let emojiStack = [
-                        "\u{1F60A}", // Smiling Face With Smiling Eyes
-                        "\u{1F642}", // Slightly Smiling Face
-                        "\u{1F60C}", // Relieved Face
-                        "\u{1F601}", // Grinning Face With Smiling Eyes
-                        "\u{1F60D}", // Smiling Face With Heart-Eyes
-                        "\u{1F618}", // Face Blowing a Kiss
-                        "\u{1F60B}", // Face Savoring Food
-                        "\u{1F64C}", // Person Raising Both Hands in Celebration
-                        "\u{1F31F}", // Glowing Star
-                        "\u{1F389}", // Party Popper
-                        "\u{1F49C}", // Heart With Arrow
-                        "\u{1F495}", // Two Hearts
-                        "\u{1F44F}", // Clapping Hands Sign
-                        "\u{1F525}", // Fire
-                        "\u{1F4AF}", // Hundred Points Symbol
-                        "\u{270C}",  // Victory Hand
-                        "\u{1F4AA}" // Flexed Biceps
+                        "\u{1F61E}", // 😞
+                        "\u{1F494}", // 💔
+                        "\u{1F610}", // 😐
+                        "\u{1F615}", // 😕
+                        "\u{1F44E}", // 👎
+                        "\u{1F480}", // 💀
+                        "\u{1F494}", // 💔
+                        "\u{1F4A9}", // 💩
+                        "\u{1F44A}"  // 👊
                     ]
 
                     //Click on the Youtube Comment Boc Ui
